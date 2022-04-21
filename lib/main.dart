@@ -38,14 +38,28 @@ class SplashScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: 200,
+                  width: 150,
+                  child: Image.asset('asset/images/smiley.png'),
+                )
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Text(
-                  "Mariota",
+                  "Groot",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 52.0,
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 0.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -54,6 +68,7 @@ class SplashScreen extends StatelessWidget {
                   "Your daily dose of humor",
                   style: TextStyle(
                     color: Colors.white,
+                    fontFamily: 'Poppins',
                     fontSize: 24.0,
                   ),
                 ),
