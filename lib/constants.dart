@@ -15,7 +15,7 @@ var kSplashTitle = TextStyle(
 
 var kHeaderTitle = TextStyle(
   color: Colors.white,
-  fontSize: 36.0,
+  fontSize: 38.0,
   fontFamily: 'Poppins',
   fontWeight: FontWeight.bold,
 );
@@ -45,5 +45,5 @@ var kNotification = TextStyle(
   color: Color.fromARGB(255, 136, 134, 134),
   fontSize: 22.0,
   fontFamily: 'Poppins',
-  fontWeight: FontWeight.w700,
+  fontWeight: FontWeight.w300,
 );
