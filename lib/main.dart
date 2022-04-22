@@ -2,9 +2,11 @@
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // for using json.decode()
 import 'package:page_transition/page_transition.dart';
 import 'package:training_fetching/constants.dart';
+import 'package:training_fetching/model/joke.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +46,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Joke? _loadedJoke = null;
+
+  Future<void> _fetchData() async {
+    Map<String, String> headers = {
+      'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com',
+      'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
+    };
+    const url = 'https://dad-jokes.p.rapidapi.com/random/joke';
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
+    final data = json.decode(response.body);
+    if (response.statusCode == 200) {
+      // success
+      setState(() {
+        _loadedJoke = Joke.fromJson(data);
+      });
+      print((_loadedJoke?.body as List)[0].punchline);
+    } else {
+      print("Error");
+    }
+  }
+
+  @override
+  void initState() {
+    _fetchData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,14 +156,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundColor: kBackgroundColor,
-                    child: Icon(
-                      Icons.refresh,
-                      size: 35.0,
-                      color: Colors.white,
+                  child: GestureDetector(
+                    onTap: () => {
+                      _fetchData(),
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: kBackgroundColor,
+                      child: Icon(
+                        Icons.refresh,
+                        size: 35.0,
+                        color: Colors.white,
+                      ),
+                      radius: 35,
                     ),
-                    radius: 35,
                   ),
                 )
               ],

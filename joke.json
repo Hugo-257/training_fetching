@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "body": [
+        {
+            "_id": "60dd37227dc67f1e8247945a",
+            "setup": "r/Jokes founder nominated for the Nobel peace prize",
+            "punchline": "Because they’ve created world’s most dedicated recycling community.",
+            "type": "peace",
+            "likes": [
+                5
+            ],
+            "author": {
+                "name": "hugo",
+                "id": 1
+            },
+            "approved": true,
+            "date": 1618108661,
+            "NSFW": false
+        }
+    ]
+}
