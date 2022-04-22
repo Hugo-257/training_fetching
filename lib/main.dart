@@ -122,38 +122,47 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.55,
                     alignment: Alignment.center,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${(_loadedJoke?.body as List)[0].setup} -${(_loadedJoke?.body as List)[0].punchline}',
-                            style: kJoke,
-                            textAlign: TextAlign.center,
-                          ),
-                          Center(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Text(
-                                  '${(_loadedJoke?.body as List)[0].type}'[0]
-                                          .toUpperCase() +
-                                      '${(_loadedJoke?.body as List)[0].type}'
-                                          .substring(1),
-                                  style: kBtnText),
-                              decoration: BoxDecoration(
-                                color: kBtnBackground,
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 5.0,
-                              ),
+                    child: _loadedJoke != null
+                        ? SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${(_loadedJoke?.body as List)[0].setup} -${(_loadedJoke?.body as List)[0].punchline}',
+                                  style: kJoke,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Center(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    child: Text(
+                                        '${(_loadedJoke?.body as List)[0].type}'[
+                                                    0]
+                                                .toUpperCase() +
+                                            '${(_loadedJoke?.body as List)[0].type}'
+                                                .substring(1),
+                                        style: kBtnText),
+                                    decoration: BoxDecoration(
+                                      color: kBtnBackground,
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16.0,
+                                      vertical: 5.0,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           )
-                        ],
-                      ),
-                    ),
+                        : Center(
+                            child: Text(
+                              "No Joke Available!",
+                              style: kNotification,
+                            ),
+                          ),
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 60.0),
                     decoration: BoxDecoration(
@@ -170,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: CircleAvatar(
                       backgroundColor: kBackgroundColor,
                       child: Icon(
-                        Icons.refresh,
-                        size: 35.0,
+                        Icons.sync,
+                        size: 45.0,
                         color: Colors.white,
                       ),
                       radius: 35,

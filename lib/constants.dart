@@ -40,3 +40,10 @@ var kBtnText = TextStyle(
   fontFamily: 'Poppins',
   fontWeight: FontWeight.w700,
 );
+
+var kNotification = TextStyle(
+  color: Color.fromARGB(255, 136, 134, 134),
+  fontSize: 22.0,
+  fontFamily: 'Poppins',
+  fontWeight: FontWeight.w700,
+);
