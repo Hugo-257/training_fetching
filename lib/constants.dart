@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 const kBodyColor = Color(0xFFE7EEFB);
 const kBackgroundColor = Color(0xFFea6f79);
-const kBtnBackground = Color.fromARGB(255, 235, 232, 232);
+const kBtnBackground = Color.fromARGB(255, 207, 207, 207);
+const kShadowColor = Color.fromARGB(255, 68, 68, 68);
 
 // Text Styles
 var kSplashTitle = TextStyle(

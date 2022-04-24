@@ -2,7 +2,7 @@
     package="com.example.training_fetching">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Root"
+        android:label="Groot"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
