@@ -16,13 +16,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late AnimationController _controller;
   Joke? _loadedJoke;
   bool loading = false;
   bool initialRender = true;
   String message = "Loading...";
 
   Future<void> _fetchData() async {
+    _controller.forward();
     message = "Loading...";
     setState(() {
       initialRender = true;
@@ -49,10 +51,22 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       message = "Couldn't fetch the joke!";
     }
+    _controller.reset();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 3000),
+      vsync: this,
+    );
+
     if (widget.initialJoke == null) {
       _fetchData();
     }
@@ -110,7 +124,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => {
                       _fetchData(),
                     },
-                    child: RefreshButton(),
+                    child: RotationTransition(
+                        turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                        child: RefreshButton()),
                   ),
                 )
               ],
