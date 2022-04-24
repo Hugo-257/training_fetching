@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 
+const kUrl = "http://192.168.42.242:5000/random/jokes";
 const kBodyColor = Color(0xFFE7EEFB);
 const kBackgroundColor = Color(0xFFea6f79);
 const kBtnBackground = Color.fromARGB(255, 207, 207, 207);

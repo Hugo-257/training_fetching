@@ -24,11 +24,11 @@ class _SplashScreen extends State<SplashScreen> {
       'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com',
       'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
     };
-    const url = 'https://dad-jokes.p.rapidapi.com/random/joke';
+    var url = 'https://dad-jokes.p.rapidapi.com/random/joke';
 
     final response = await http.get(
-      Uri.parse(url),
-      headers: headers,
+      Uri.parse(kUrl),
+      /* headers: headers, */
     );
     final data = json.decode(response.body);
     if (response.statusCode == 200) {

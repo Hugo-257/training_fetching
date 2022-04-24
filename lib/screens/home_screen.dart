@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:training_fetching/components/header.dart';
@@ -24,34 +25,53 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   String message = "Loading...";
 
   Future<void> _fetchData() async {
-    _controller.forward();
-    message = "Loading...";
     setState(() {
-      initialRender = true;
+      initialRender = false;
       loading = true;
+      message = "Loading...";
+    });
+    _controller.forward();
+    Timer mytimer = Timer.periodic(Duration(milliseconds: 1050), (timer) {
+      if (loading) {
+        _controller.reset();
+        _controller.forward();
+      } else {
+        _controller.reset();
+        timer.cancel();
+      }
     });
 
     Map<String, String> headers = {
       'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com',
       'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
     };
-    const url = 'https://dad-jokes.p.rapidapi.com/random/joke';
+    var url = 'https://dad-jokes.p.rapidapi.com/random/joke';
 
     final response = await http.get(
-      Uri.parse(url),
-      headers: headers,
+      Uri.parse(kUrl),
+      /* headers: headers, */
     );
     final data = json.decode(response.body);
-    if (response.statusCode == 200) {
-      // success
-      setState(() {
-        _loadedJoke = Joke.fromJson(data);
-        loading = false;
-      });
-    } else {
-      message = "Couldn't fetch the joke!";
+
+    switch (response.statusCode) {
+      case 200:
+        setState(() {
+          _loadedJoke = Joke.fromJson(data);
+          loading = false;
+        });
+        break;
+      case 429:
+        setState(() {
+          loading = false;
+          message = "Maximum of jokes's day riched";
+        });
+        break;
+      default:
+        setState(() {
+          loading = false;
+          message = "Couldn't fetch the joke!";
+        });
     }
-    _controller.reset();
   }
 
   @override
@@ -63,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -105,12 +125,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             child: Text(
                               message,
                               style: kNotification,
+                              textAlign: TextAlign.center,
                             ),
                           )
-                        : JokeSection(
-                            loadedJoke: initialRender
-                                ? widget.initialJoke
-                                : _loadedJoke),
+                        : (_loadedJoke == null && widget.initialJoke == null)
+                            ? Center(
+                                child: Text(
+                                  message,
+                                  style: kNotification,
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : JokeSection(
+                                loadedJoke: initialRender
+                                    ? widget.initialJoke
+                                    : _loadedJoke),
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 60.0),
                     decoration: BoxDecoration(
