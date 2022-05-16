@@ -46,31 +46,46 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
     };
     var url = 'https://dad-jokes.p.rapidapi.com/random/joke';
+    final response;
+    try {
+      final response = await http
+          .get(
+            Uri.parse(kUrl),
+            /* headers: headers, */
+          )
+          .timeout(const Duration(seconds: 10));
 
-    final response = await http.get(
-      Uri.parse(kUrl),
-      /* headers: headers, */
-    );
-    final data = json.decode(response.body);
+      final data = json.decode(response.body);
 
-    switch (response.statusCode) {
-      case 200:
-        setState(() {
-          _loadedJoke = Joke.fromJson(data);
-          loading = false;
-        });
-        break;
-      case 429:
-        setState(() {
-          loading = false;
-          message = "Maximum of jokes's day riched";
-        });
-        break;
-      default:
-        setState(() {
-          loading = false;
-          message = "Couldn't fetch the joke!";
-        });
+      switch (response.statusCode) {
+        case 200:
+          setState(() {
+            _loadedJoke = Joke.fromJson(data);
+            loading = false;
+          });
+          break;
+        case 429:
+          setState(() {
+            loading = false;
+            message = "Maximum of jokes's day riched";
+          });
+          break;
+        default:
+          setState(() {
+            loading = false;
+            message = "Couldn't fetch the joke!";
+          });
+      }
+    } on TimeoutException catch (e) {
+      setState(() {
+        loading = false;
+        message = "Check your connection!";
+      });
+    } on Error catch (e) {
+      setState(() {
+        loading = false;
+        message = "Couldn't fetch the joke!";
+      });
     }
   }
 
@@ -83,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1100),
       vsync: this,
     );
 

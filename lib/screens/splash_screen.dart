@@ -18,27 +18,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> {
   // This widget is the root of your application.
 
-  Joke? _loadedJoke = null;
-  Future<void> _fetchData() async {
-    Map<String, String> headers = {
-      'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com',
-      'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
-    };
-    var url = 'https://dad-jokes.p.rapidapi.com/random/joke';
-
-    final response = await http.get(
-      Uri.parse(kUrl),
-      /* headers: headers, */
-    );
-    final data = json.decode(response.body);
-    if (response.statusCode == 200) {
-      // success
-      setState(() {
-        _loadedJoke = Joke.fromJson(data);
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -53,8 +32,7 @@ class _SplashScreen extends State<SplashScreen> {
       ),
       home: AnimatedSplashScreen.withScreenFunction(
         screenFunction: () async {
-          await _fetchData();
-          return HomeScreen(initialJoke: _loadedJoke);
+          return HomeScreen(initialJoke: null);
         },
         splash: Text(
           "Groot",
