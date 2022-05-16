@@ -1,10 +1,10 @@
 part of 'joke_bloc.dart';
 
 @immutable
-abstract class JokeBlocEvent extends Equatable {
-  const JokeBlocEvent();
+abstract class JokeEvent extends Equatable {
+  const JokeEvent();
   @override
   List<Object> get props => [];
 }
 
-class GetJoke extends JokeBlocEvent {}
+class GetJoke extends JokeEvent {}

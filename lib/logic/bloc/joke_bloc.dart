@@ -7,12 +7,11 @@ import 'package:training_fetching/logic/resources/api_repository.dart';
 part 'joke_event.dart';
 part 'joke_state.dart';
 
-class JokeBlocBloc extends Bloc<JokeBlocEvent, JokeState> {
-  JokeBlocBloc() : super(JokeInitial()) {
+class JokeBloc extends Bloc<JokeEvent, JokeState> {
+  JokeBloc() : super(JokeInitial()) {
     final ApiRepository _apiRepository = ApiRepository();
 
     on<GetJoke>((event, emit) async {
-      // TODO: implement event handler
       try {
         emit(JokeLoading());
         final joke = await _apiRepository.fetchJoke();
