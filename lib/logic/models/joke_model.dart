@@ -3,9 +3,12 @@
 class Joke {
   bool? success;
   List<Body>? body;
+  String? error;
 
   Joke({this.success, this.body});
-
+  Joke.withError(String errorMessage) {
+    error = errorMessage;
+  }
   Joke.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['body'] != null) {

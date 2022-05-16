@@ -7,7 +7,7 @@ import 'package:training_fetching/components/joke_section.dart';
 import 'package:training_fetching/components/refresh_button.dart';
 import 'package:training_fetching/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:training_fetching/model/joke.dart';
+import 'package:training_fetching/logic/models/joke_model.dart';
 
 class HomeScreen extends StatefulWidget {
   Joke? initialJoke;
