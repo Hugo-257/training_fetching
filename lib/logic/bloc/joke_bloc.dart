@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -18,10 +16,8 @@ class JokeBloc extends Bloc<JokeEvent, JokeState> {
         emit(JokeLoading());
         final joke = await _apiRepository.fetchJoke();
         if (joke.error == null) {
-          print(joke.body);
           emit(JokeLoaded(joke));
         } else {
-          print(joke.error);
           emit(JokeError(joke.error));
         }
       } catch (e) {
