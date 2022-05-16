@@ -46,12 +46,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       'X-RapidAPI-Key': 'c41b9dec81mshb58884600d6f633p117f6cjsnd776f8e034b0'
     };
     var url = 'https://dad-jokes.p.rapidapi.com/random/joke';
-    final response;
     try {
       final response = await http
           .get(
-            Uri.parse(kUrl),
-            /* headers: headers, */
+            Uri.parse(url),
+            headers: headers,
           )
           .timeout(const Duration(seconds: 10));
 

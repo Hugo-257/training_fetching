@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:training_fetching/constants.dart';
-import 'package:training_fetching/model/joke.dart';
 import 'package:training_fetching/screens/home_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:http/http.dart' as http;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
